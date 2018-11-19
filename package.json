@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc && ava",
+    "start": "tsc && bash ./run.sh",
+    "test:watch": "tsc && ava --watch",
     "build": "tsc"
   },
   "author": "",
@@ -26,6 +28,25 @@
     "@types/express-jwt": "0.0.40",
     "@types/mongoose": "^5.3.1",
     "@types/morgan": "^1.7.35",
-    "typescript": "^2.8.1"
+    "@types/sinon": "^5.0.6",
+    "ava": "1.0.0-rc.2",
+    "sinon": "^7.1.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "files": [
+      "src/**/*.spec.ts"
+    ],
+    "sources": [
+      "src/**/*.ts"
+    ]
   }
 }

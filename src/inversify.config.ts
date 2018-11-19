@@ -6,8 +6,12 @@ import { TYPES } from './types';
 // needed by inversify in order to read controllers metadata
 import './routes/users.routes';
 import './routes/bands.routes';
+import { LoginService } from './services/login.service';
 
 export const container = new Container();
 container.bind<IModel<Band>>(TYPES.BandModel).toConstantValue(BandModel);
 container.bind<IModel<User>>(TYPES.UserModel).toConstantValue(UserModel);
+
 container.bind<string>('SECRET').toConstantValue(SECRET);
+
+container.bind<LoginService>(LoginService).toSelf();
