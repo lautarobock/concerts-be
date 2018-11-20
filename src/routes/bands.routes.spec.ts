@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import test from 'ava';
 import * as sinon from 'sinon';
 import { BandsRoutes } from './bands.routes';
-import { BandModel } from '../model';
+import { BandModel } from '../daos/domain.daos';
 
 test('Get all bands', async t => {
     const model = BandModel;

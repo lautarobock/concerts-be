@@ -1,16 +1,15 @@
-import { httpGet, controller, response } from "inversify-express-utils";
-import { inject } from "inversify";
-import { TYPES } from "../types";
-import { IModel, User } from "../model";
-import * as jwtSimple from 'jwt-simple';
+import { httpGet, controller, response, queryParam } from "inversify-express-utils";
 import { Response } from "express";
 import { LoginService } from "../services/login.service";
+import { LoginResponse } from "../model/login.model";
+import { inject } from "inversify";
+import { TYPES } from "../types";
 
 @controller('/api/users')
 export class UsersRoutes {
     
     constructor(
-        private loginService: LoginService
+        @inject(TYPES.LoginService) private loginService: LoginService
     ) {}
 
     // @httpGet('/')
@@ -19,16 +18,29 @@ export class UsersRoutes {
     // }
 
     @httpGet('/users/token')
-    async login(email: string, pwd: string, @response() res: Response): Promise<{token: string, user: User}> {
+    async login(
+        @queryParam() email: string,
+        @queryParam() pwd: string,
+        @response() res: Response
+    ): Promise<LoginResponse> {
         try {
-            return (await this.loginService.login(email, pwd));
+            return await this.loginService.login(email, pwd);
         } catch(e) {
             res.status(404).send();
         }
     }
     
-    // async signin(arg0: string, arg1: string, arg2: Response): Promise<{token: string, user: User}> {
-        
-    // }
+    async signin(
+        @queryParam() email: string,
+        @queryParam() pwd: string,
+        @queryParam() name: string,
+        @response() res: Response
+    ): Promise<LoginResponse> {
+        try {
+            return await this.loginService.signin(email, pwd, name);
+        } catch(e) {
+            res.status(422).send();
+        }
+    }
     
 }
