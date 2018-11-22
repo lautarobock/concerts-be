@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "test": "tsc && ava",
-    "start:prod": "node bin/www",
     "start": "bash ./run.sh",
+    "start:prod": "tsc && node bin/www",
     "test:watch": "tsc && ava --watch",
     "build": "tsc",
     "prestart": "tsc"
