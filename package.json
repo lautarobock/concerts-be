@@ -4,9 +4,11 @@
   "description": "",
   "scripts": {
     "test": "tsc && ava",
-    "start": "tsc && bash ./run.sh",
+    "start:prod": "node bin/www",
+    "start": "bash ./run.sh",
     "test:watch": "tsc && ava --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "prestart": "tsc"
   },
   "author": "",
   "license": "ISC",

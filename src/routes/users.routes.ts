@@ -1,4 +1,4 @@
-import { httpGet, controller, response, queryParam } from "inversify-express-utils";
+import { httpGet, controller, response, queryParam, httpPost } from "inversify-express-utils";
 import { Response } from "express";
 import { LoginService } from "../services/login.service";
 import { LoginResponse } from "../model/login.model";
@@ -17,10 +17,10 @@ export class UsersRoutes {
     //     return this.userModel.find();
     // }
 
-    @httpGet('/users/token')
+    @httpGet('/token')
     async login(
-        @queryParam() email: string,
-        @queryParam() pwd: string,
+        @queryParam('email') email: string,
+        @queryParam('pwd') pwd: string,
         @response() res: Response
     ): Promise<LoginResponse> {
         try {
@@ -30,10 +30,11 @@ export class UsersRoutes {
         }
     }
     
+    @httpPost('/token')
     async signin(
-        @queryParam() email: string,
-        @queryParam() pwd: string,
-        @queryParam() name: string,
+        @queryParam('email') email: string,
+        @queryParam('pwd') pwd: string,
+        @queryParam('name') name: string,
         @response() res: Response
     ): Promise<LoginResponse> {
         try {

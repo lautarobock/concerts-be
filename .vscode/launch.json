@@ -8,11 +8,29 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/src\\app.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
+            "program": "${workspaceFolder}\\bin\\www",
+            "preLaunchTask": "npm: build",
+            // "outFiles": [
+            //     "${workspaceFolder}/dist/**/*.js"
+            // ],
+            "env": {
+                "DEBUG": "concerts-be:*",
+                "DATABASE_URL": "mongodb://localhost:27017/concerts"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Prod",
+            "program": "${workspaceFolder}\\bin\\www",
+            "preLaunchTask": "npm: build",
+            // "outFiles": [
+            //     "${workspaceFolder}/dist/**/*.js"
+            // ],
+            "env": {
+                "DEBUG": "concerts-be:*",
+                "DATABASE_URL": "mongodb+srv://admn:safeConcerts123@cluster0-hotnq.mongodb.net/concerts-prod?retryWrites=true"
+            }
         }
     ]
 }

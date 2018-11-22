@@ -1,18 +1,18 @@
-import { IModel } from "../daos/domain.daos";
-import { controller, httpGet } from "inversify-express-utils";
+import { controller, httpGet, httpPost, requestBody } from "inversify-express-utils";
 import { inject } from "inversify";
 import { TYPES } from "../types";
 import { Band } from "../model/domain.model";
+import { BandsService } from "../services/bands.service";
 
 @controller('/api/bands')
 export class BandsRoutes {
 
     constructor(
-        @inject(TYPES.BandModel) private bandModel: IModel<Band>
+        @inject(TYPES.BandsService) private bandsService: BandsService
     ) {}
-
-    @httpGet('/')
-    async all() {
-        return await this.bandModel.find();
+    
+    @httpPost('/')
+    async create(@requestBody() band: Band) {
+        return await this.bandsService.create(band);
     }
 }

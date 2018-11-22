@@ -9,10 +9,12 @@ import { DefaultLoginService, DefaultPwdHelper } from '../services/login.service
 test('Login OK', async t => {
     const userModel = UserModel;
     const mock: SinonSpy = userModel.findOne = fake.returns({
-        _id: 'ID',
-        name: 'fakename',
-        email: 'mail@fake.com',
-        pwd: 'pbkdf2$10000$8f0317606f633b5a68462212f1e448678821cd9522ed033558d10672ff35cb57575704e10c93a7309fabe9eb28d0b44543f2d2a5d3607177cb7a4f1319eefd33$15fc11fc6075eea7e65febee046aa42c2d18dfbb66d9f0316ac02889e0d602b090d175d01eea155f7bbbd8051b5c9587206921af273c84ce96a4c5156882ebe1'
+        lean: fake.returns({
+            _id: 'ID',
+            name: 'fakename',
+            email: 'mail@fake.com',
+            pwd: 'pbkdf2$10000$8f0317606f633b5a68462212f1e448678821cd9522ed033558d10672ff35cb57575704e10c93a7309fabe9eb28d0b44543f2d2a5d3607177cb7a4f1319eefd33$15fc11fc6075eea7e65febee046aa42c2d18dfbb66d9f0316ac02889e0d602b090d175d01eea155f7bbbd8051b5c9587206921af273c84ce96a4c5156882ebe1',
+        })
     });
     const pwdHelper = new DefaultPwdHelper();
     const loginService = new DefaultLoginService(userModel, 'SECRET', pwdHelper);

@@ -57,7 +57,7 @@ export class DefaultLoginService implements LoginService {
     ) {}
 
     async login(email: string, pwd: string): Promise<LoginResponse> {
-        const user = await this.userModel.findOne({email}, '+pwd');
+        const user = await this.userModel.findOne({email}, '+pwd').lean();
         if (await this.pwdHelper.verify(pwd, user.pwd)) {
             const exp = new Date().getTime() + (1000 * 60 * 60 * 24 * 30 * 7);
             delete user.pwd;
@@ -80,9 +80,10 @@ export class DefaultLoginService implements LoginService {
         if (await this.userModel.findOne({email})) {
             return Promise.reject(new Error('Already exists'));
         } else {
-            const user = await this.userModel.create({
+            let user = await this.userModel.create({
                 email, name, pwd: (await this.pwdHelper.hash(pwd))
             });
+            user = JSON.parse(JSON.stringify(user));
             delete user.pwd;
             const exp = new Date().getTime() + (1000 * 60 * 60 * 24 * 30 * 7);
             return Promise.resolve({
