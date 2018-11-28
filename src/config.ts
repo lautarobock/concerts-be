@@ -13,7 +13,8 @@ function secure(app) {
     }).unless({
         path: [
             '/',
-            '/api/concerts',
+            // '/api/concerts',
+            /\/api\/concerts\/.*/,
             '/api/users/token',
             '/favicon.ico',
             '/robots.txt'
