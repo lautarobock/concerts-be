@@ -14,7 +14,7 @@ function secure(app) {
         path: [
             '/',
             // '/api/concerts',
-            /\/api\/concerts\/.*/,
+            /\/api\/concerts.*/,
             '/api/users/token',
             '/favicon.ico',
             '/robots.txt'
