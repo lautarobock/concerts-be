@@ -11,6 +11,8 @@ export interface ConcertsService {
      */
     findNext(): Promise<Concert[]>;
 
+    get(id: string): Promise<Concert>;
+
     create(concert: Concert): Promise<Concert>;
 }
 
@@ -23,6 +25,10 @@ export class DefaultConcertsService {
 
     async findNext(): Promise<Concert[]> {
         return this.concertsModel.find({ date: { $gt: new Date() } }).sort('date');
+    }
+
+    async get(id: string): Promise<Concert> {
+        return this.concertsModel.findById(id);
     }
 
     async create(concert: Concert): Promise<Concert> {

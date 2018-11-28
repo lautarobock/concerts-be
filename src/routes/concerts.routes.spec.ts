@@ -16,6 +16,16 @@ test('Find next concerts', async t => {
     t.true(mock.called);
 });
 
+test('get concert by id', async t => {
+    const service = {} as ConcertsService;
+    const mock: SinonSpy = service.get = fake.returns({title: 'Mock Concert'} as Concert);
+    const route = new ConcertsRoutes(service);
+    const concert = await route.get('ID');
+    t.not(concert, undefined);
+    t.is(concert.title, 'Mock Concert');
+    t.true(mock.called);
+});
+
 test('Create new concert', async t => {
     const service = {} as ConcertsService;
     const mock: SinonSpy = service.create = fake.returns({title: 'New Mock Concert'} as Concert);
